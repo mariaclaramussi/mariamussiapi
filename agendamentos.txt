@@ -1,0 +1,2 @@
+Elberth Moraes;Medico 1;1234;Bradesco;plano;0.00;2025-04-25 12:23:54
+Maria Clara;Medico 2;1235;SUS;SUS;0.00;2025-04-25 13:23:54
