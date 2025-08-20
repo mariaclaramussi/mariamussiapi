@@ -29,8 +29,8 @@ public class AgendamentoController {
     }
 
     @GetMapping(value = "/{id}/validar")
-    public Boolean validarAgendamento(@PathVariable Integer id) {
-        return agendamentoService.validarAgendamento(id);
+    public Boolean verificarAgendamento(@PathVariable Integer id) {
+        return agendamentoService.verificarAgendamento(id);
     }
 
     @PostMapping

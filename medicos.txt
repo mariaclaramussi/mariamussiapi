@@ -1,0 +1,2 @@
+Medico 1;100001;Cirurgia Geral;000.001.002-33
+Medico 2;100002;Pediaria;000.001.002-44

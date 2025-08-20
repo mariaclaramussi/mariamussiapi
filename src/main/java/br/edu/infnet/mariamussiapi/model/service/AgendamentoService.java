@@ -16,6 +16,12 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
     private final Map<Integer, Agendamento> mapa = new ConcurrentHashMap<Integer, Agendamento>();
     private final AtomicInteger nextId = new AtomicInteger(1);
 
+    private void validar(Agendamento agendamento) {
+        if(agendamento == null) {
+            throw new IllegalArgumentException("O agendamento não pode ser vazio");
+        }
+    }
+
     @Override
     public Agendamento adicionar(Agendamento agendamento) {
 
@@ -32,11 +38,19 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
     }
 
     @Override
-    public Agendamento editar(Integer id, Agendamento editAgendamento) {
+    public Agendamento editar(Integer id, Agendamento agendamento) {
+        if(id == null || id == 0) {
+            throw new IllegalArgumentException("O ID nao pode ser nulo ou vazio");
+        }
+
+        validar(agendamento);
 
         obterPorId(id);
 
-        return null;
+        agendamento.setId(id);
+        mapa.put(agendamento.getId(), agendamento);
+
+        return agendamento;
     }
 
     @Override
@@ -49,7 +63,7 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
         Agendamento agendamento = mapa.get(id);
 
         if(agendamento == null) {
-            throw new IllegalArgumentException("Agendamento nao existe. ID:" + id);
+            throw new AgendamentoInvalidoException("Agendamento nao existe. ID:" + id);
         }
 
         return agendamento;
@@ -60,7 +74,7 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
         return new ArrayList<Agendamento>(mapa.values());
     }
 
-    public Boolean validarAgendamento(Integer id) {
+    public Boolean verificarAgendamento(Integer id) {
         // TODO: verificar se ja foi realizado
         return false;
     }
