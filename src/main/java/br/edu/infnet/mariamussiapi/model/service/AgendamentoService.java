@@ -1,6 +1,7 @@
 package br.edu.infnet.mariamussiapi.model.service;
 
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
+import br.edu.infnet.mariamussiapi.model.domain.exceptions.AgendamentoInvalidoException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,13 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
 
     @Override
     public Agendamento adicionar(Agendamento agendamento) {
+
+        if(agendamento.getPaciente() == null) {
+            throw new AgendamentoInvalidoException("O paciente é obrigatório");
+        } else if (agendamento.getMedico() == null) {
+            throw new AgendamentoInvalidoException("O médico é obrigatório");
+        }
+
         agendamento.setId(nextId.getAndIncrement());
         mapa.put(agendamento.getId(), agendamento);
 
@@ -24,7 +32,10 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
     }
 
     @Override
-    public Agendamento editar(Integer integer, Agendamento agendamento) {
+    public Agendamento editar(Integer id, Agendamento editAgendamento) {
+
+        obterPorId(id);
+
         return null;
     }
 
@@ -34,12 +45,23 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
     }
 
     @Override
-    public Agendamento obterPorId(Integer integer) {
-        return null;
+    public Agendamento obterPorId(Integer id) {
+        Agendamento agendamento = mapa.get(id);
+
+        if(agendamento == null) {
+            throw new IllegalArgumentException("Agendamento nao existe. ID:" + id);
+        }
+
+        return agendamento;
     }
 
     @Override
     public List<Agendamento> obterLista() {
         return new ArrayList<Agendamento>(mapa.values());
+    }
+
+    public Boolean validarAgendamento(Integer id) {
+        // TODO: verificar se ja foi realizado
+        return false;
     }
 }

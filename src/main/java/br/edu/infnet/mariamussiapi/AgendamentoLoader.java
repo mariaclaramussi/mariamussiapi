@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.sql.Timestamp;
 
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
+import br.edu.infnet.mariamussiapi.model.domain.Medico;
+import br.edu.infnet.mariamussiapi.model.domain.Paciente;
 import br.edu.infnet.mariamussiapi.model.service.AgendamentoService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -31,8 +33,20 @@ public class AgendamentoLoader implements ApplicationRunner {
 
             campos = linha.split(";");
 
+            Paciente paciente = new Paciente();
+            paciente.setNome("Maria");
+            paciente.setCpf("100.000.000-00");
+            paciente.setNomeMae("Rafaela");
+
+            Medico medico = new Medico();
+            medico.setNome("Medico 1");
+            medico.setCRM("10000");
+            medico.setEspecialidade("Cirurgia Geral");
+
             Agendamento agendamento = new Agendamento();
 
+            agendamento.setPaciente(paciente);
+            agendamento.setMedico(medico);
             agendamento.setProntuario(Integer.valueOf(campos[2]));
             agendamento.setPlanoDeSaude(campos[3]);
             agendamento.setTipoConsulta(campos[4]);
