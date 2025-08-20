@@ -1,6 +1,6 @@
 package br.edu.infnet.mariamussiapi.model.domain;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Pessoa {
 
@@ -8,7 +8,7 @@ public class Pessoa {
 
     private String nome;
     private String cpf;
-    private Timestamp nascimento;
+    private Date nascimento;
     private String sexo;
     private Endereco endereco;
 
@@ -47,11 +47,11 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
-    public Timestamp getNascimento() {
+    public Date getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(Timestamp nascimento) {
+    public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
 

@@ -5,6 +5,14 @@ public class Paciente extends Pessoa {
     private String nomeMae;
     private boolean possuiPlano;
 
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "nomeMae='" + nomeMae + '\'' +
+                ", possuiPlano=" + possuiPlano +
+                '}';
+    }
+
     public String getNomeMae() {
         return nomeMae;
     }
