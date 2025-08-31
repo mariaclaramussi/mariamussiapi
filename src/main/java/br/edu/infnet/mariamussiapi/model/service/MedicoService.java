@@ -4,23 +4,22 @@ import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.MedicoInvalidoException;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.MedicoNaoExisteException;
+import br.edu.infnet.mariamussiapi.model.repository.MedicoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class MedicoService implements CrudService<Medico, Integer> {
 
-    private final Map<Integer, Medico> mapa = new ConcurrentHashMap<Integer, Medico>();
-    private final AtomicInteger nextId = new AtomicInteger(1);
+    private final MedicoRepository medicoRepository;
 
-    @Override
-    public Medico adicionar(Medico medico) {
+    public MedicoService(MedicoRepository medicoRepository) {
+        this.medicoRepository = medicoRepository;
+    }
 
+    public void validar(Medico medico) {
         if(medico.getCRM() == null) {
             throw new MedicoInvalidoException("O CRM é obrigatorio");
         } else if (medico.getEspecialidade() == null) {
@@ -28,37 +27,51 @@ public class MedicoService implements CrudService<Medico, Integer> {
         } else if (medico.getCRM().length() < 6) {
             throw new MedicoInvalidoException("CRM incorreto");
         }
+    }
 
-        medico.setId(nextId.getAndIncrement());
-        mapa.put(medico.getId(), medico);
-
-        return medico;
+    public void validarId(Integer id) {
+        if(id == null || id == 0) {
+            throw new IllegalArgumentException("O ID nao pode ser nulo ou vazio");
+        }
     }
 
     @Override
-    public Medico editar(Integer integer, Medico object) {
-        return null;
+    public Medico adicionar(Medico medico) {
+        validar(medico);
+
+        return medicoRepository.save(medico);
     }
 
     @Override
-    public void excluir(Integer integer) {
+    @Transactional
+    public Medico editar(Integer id, Medico medico) {
+        validarId(id);
+        validar(medico);
 
+        obterPorId(id);
+        medico.setId(id);
+
+        return medicoRepository.save(medico);
+    }
+
+    @Override
+    public void excluir(Integer id) {
+        validarId(id);
+        Medico medico = obterPorId(id);
+
+        medicoRepository.delete(medico);
     }
 
     @Override
     public Medico obterPorId(Integer id) {
-        Medico medico = mapa.get(id);
+        validarId(id);
 
-        if(medico == null) {
-            throw new MedicoNaoExisteException("Medico nao existe");
-        }
-
-        return mapa.get(id);
+        return medicoRepository.findById(id).orElseThrow(() -> new MedicoNaoExisteException("Nao foi possivel encontrar médico"));
     }
 
     @Override
     public List<Medico> obterLista() {
-        return new ArrayList<Medico>(mapa.values());
+        return medicoRepository.findAll();
     }
 
     public List<Agendamento> verificarAgendamentos(Integer id) {

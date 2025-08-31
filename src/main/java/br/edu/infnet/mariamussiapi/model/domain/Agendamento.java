@@ -1,18 +1,40 @@
 package br.edu.infnet.mariamussiapi.model.domain;
 
+import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+
 import java.sql.Timestamp;
 
+@Entity
 public class Agendamento {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Transient
+    @Valid
     private Paciente paciente;
+
+    @Transient
+    @Valid
     private Medico medico;
-    private int prontuario;
+
+    @NotNull
+    @Min(value = 6, message = "O prontuário deve conter 6 dígitos")
+    private Integer prontuario;
+
     private String planoDeSaude;
+
     private String tipoConsulta; /* particular ou plano*/
+
+    @Min(value = 0)
     private double valor;
-    private Timestamp data;
+
+    @NotBlank(message = "A data do agendamento é obrigatória.")
+    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$", message = "A data do agendamento deve estar no formato DD/MM/AAAA")
+    private String data;
 
     @Override
     public String toString() {
@@ -76,11 +98,11 @@ public class Agendamento {
         this.tipoConsulta = tipoConsulta;
     }
 
-    public Timestamp getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Timestamp data) {
+    public void setData(String data) {
         this.data = data;
     }
 

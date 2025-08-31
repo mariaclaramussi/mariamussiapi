@@ -40,7 +40,7 @@ public class AgendamentoLoader implements ApplicationRunner {
 
             Medico medico = new Medico();
             medico.setNome("Medico 1");
-            medico.setCRM("10000");
+            medico.setCRM("100000");
             medico.setEspecialidade("Cirurgia Geral");
 
             Agendamento agendamento = new Agendamento();
@@ -51,7 +51,7 @@ public class AgendamentoLoader implements ApplicationRunner {
             agendamento.setPlanoDeSaude(campos[3]);
             agendamento.setTipoConsulta(campos[4]);
             agendamento.setValor(Double.parseDouble(campos[5]));
-            agendamento.setData(Timestamp.valueOf(campos[6]));
+            agendamento.setData(campos[6]);
 
             agendamentoService.adicionar(agendamento);
 

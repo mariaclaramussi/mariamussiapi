@@ -35,15 +35,14 @@ public class PacienteLoader implements ApplicationRunner {
             paciente.setCpf(campos[1]);
             paciente.setNomeMae(campos[2]);
             paciente.setPossuiPlano(Boolean.valueOf(campos[3]));
-            paciente.setNascimento(new Date(campos[4]));
+            paciente.setNascimento(campos[4]);
 
             pacienteService.adicionar(paciente);
-            System.out.println(paciente);
 
             linha = leitura.readLine();
         }
 
-        System.out.println("- " + pacienteService.obterLista().size());
+        pacienteService.obterLista().forEach(System.out::println);
 
         leitura.close();
     }

@@ -1,15 +1,36 @@
 package br.edu.infnet.mariamussiapi.model.domain;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
+@MappedSuperclass
 public class Pessoa {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 3, max = 50, message = "O nome deve conter no mínimo 3 caracteres")
     private String nome;
+
+    @NotBlank(message = "O CPF é obrigatório.")
+    @Pattern(regexp = "([0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}\\-?[0-9]{2})", message = "CPF deve estar no formato XXX.XXX.XXX-XX")
     private String cpf;
-    private Date nascimento;
+
+    @NotBlank(message = "A data de nascimento é obrigatória.")
+    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$", message = "Nascimento deve estar no formato DD/MM/AAAA")
+    private String nascimento;
     private String sexo;
+
+//    private List<Agendamento> agendamentos;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
+    @Valid
     private Endereco endereco;
 
     @Override
@@ -47,11 +68,11 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
-    public Date getNascimento() {
+    public String getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(Date nascimento) {
+    public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
     }
 

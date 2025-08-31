@@ -3,6 +3,7 @@ package br.edu.infnet.mariamussiapi.controller;
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
 import br.edu.infnet.mariamussiapi.model.service.MedicoService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,17 @@ public class MedicoController {
     }
 
     @GetMapping
-    public List<Medico> obterMedicos() {
-        return medicoService.obterLista();
+    public ResponseEntity<List<Medico>> obterMedicos() {
+        List<Medico> lista = medicoService.obterLista();
+
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping(value="/{id}")
-    public Medico obterPorId(@PathVariable Integer id) {
-        return medicoService.obterPorId(id);
+    public ResponseEntity<Medico> obterPorId(@PathVariable Integer id) {
+        Medico medico = medicoService.obterPorId(id);
+
+        return ResponseEntity.ok(medico);
     }
 
     @GetMapping(value="/{id}/agenda")
@@ -41,8 +46,9 @@ public class MedicoController {
     }
 
     @PutMapping(value = "/{id}")
-    public Medico editarMedico(@PathVariable Integer id, @RequestBody Medico medico) {
-        return medicoService.editar(id, medico);
+    public ResponseEntity<Medico> editarMedico(@PathVariable Integer id, @RequestBody Medico medico) {
+        Medico medicoAlterado =  medicoService.editar(id, medico);
+        return ResponseEntity.ok().body(medicoAlterado);
     }
 
     @DeleteMapping(value = "/{id}")
