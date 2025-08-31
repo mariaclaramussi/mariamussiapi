@@ -19,13 +19,20 @@ public class AgendamentoController {
     }
 
     @GetMapping
-    public List<Agendamento> obterTodosAgendamentos() {
-        return agendamentoService.obterLista();
+    public ResponseEntity<List<Agendamento>> obterTodosAgendamentos() {
+        List<Agendamento> lista = agendamentoService.obterLista();
+
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping(value = "/{id}")
-    public Agendamento obterAgendamento(@PathVariable Integer id) {
-        return agendamentoService.obterPorId(id);
+    public ResponseEntity<Agendamento> obterAgendamento(@PathVariable Integer id) {
+        Agendamento agendamento = agendamentoService.obterPorId(id);
+        return ResponseEntity.ok(agendamento);
     }
 
     @GetMapping(value = "/{id}/validar")
@@ -34,15 +41,17 @@ public class AgendamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<Agendamento> criaAgendamento(@RequestBody Agendamento agendamento) {
+    public ResponseEntity<Agendamento> criarAgendamento(@RequestBody Agendamento agendamento) {
         Agendamento novoAgendamento = agendamentoService.adicionar(agendamento);
 
         return  ResponseEntity.status(HttpStatus.CREATED).body(novoAgendamento);
     }
 
     @PutMapping(value = "/{id}")
-    public Agendamento editarAgendamento(@PathVariable Integer id, @RequestBody Agendamento agendamento) {
-        return agendamentoService.editar(id, agendamento);
+    public ResponseEntity<Agendamento> editarAgendamento(@PathVariable Integer id, @RequestBody Agendamento agendamento) {
+        Agendamento agendamentoAlterado =  agendamentoService.editar(id, agendamento);
+
+        return ResponseEntity.ok().body(agendamentoAlterado);
     }
 
     @DeleteMapping(value = "/{id}")

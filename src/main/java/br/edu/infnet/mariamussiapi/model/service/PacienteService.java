@@ -1,53 +1,71 @@
 package br.edu.infnet.mariamussiapi.model.service;
 
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
-import br.edu.infnet.mariamussiapi.model.domain.Medico;
 import br.edu.infnet.mariamussiapi.model.domain.Paciente;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.PacienteInvalidoException;
+import br.edu.infnet.mariamussiapi.model.repository.PacienteRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class PacienteService implements CrudService<Paciente, Integer>{
 
-    private final Map<Integer, Paciente> mapa = new ConcurrentHashMap<Integer, Paciente>();
-    private final AtomicInteger nextId = new AtomicInteger(1);
+    private final PacienteRepository pacienteRepository;
 
-    @Override
-    public Paciente adicionar(Paciente paciente) {
+    public PacienteService(PacienteRepository pacienteRepository) {
+        this.pacienteRepository = pacienteRepository;
+    }
+
+    public void validarId(Integer id) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("O ID não pode ser nulo/zero!");
+        }
+    }
+
+    public void validar(Paciente paciente) {
+        if(paciente == null) {
+            throw new IllegalArgumentException("O paciente não pode ser vazio");
+        }
+
         if(paciente.getCpf() == null) {
             throw new PacienteInvalidoException("O CPF é obrigatorio");
         }
 
-        paciente.setId(nextId.getAndIncrement());
-        mapa.put(paciente.getId(), paciente);
-
-        return paciente;
     }
 
     @Override
-    public Paciente editar(Integer integer, Paciente object) {
-        return null;
+    public Paciente adicionar(Paciente paciente) {
+        validar(paciente);
+        return pacienteRepository.save(paciente);
     }
 
     @Override
-    public void excluir(Integer integer) {
+    public Paciente editar(Integer id, Paciente paciente) {
+        validarId(id);
+        validar(paciente);
+        paciente.setId(id);
 
+        return pacienteRepository.save(paciente);
     }
 
     @Override
-    public Paciente obterPorId(Integer integer) {
-        return null;
+    public void excluir(Integer id) {
+        validarId(id);
+        Paciente paciente = obterPorId(id);
+
+        pacienteRepository.delete(paciente);
+    }
+
+    @Override
+    public Paciente obterPorId(Integer id) {
+        validarId(id);
+        return  pacienteRepository.findById(id).orElseThrow(() -> new PacienteInvalidoException("Paciente nao encontrado"));
     }
 
     @Override
     public List<Paciente> obterLista() {
-        return new ArrayList<Paciente>(mapa.values());
+        return pacienteRepository.findAll();
     }
 
     public List<Agendamento> verificarConsultas(Integer id) {

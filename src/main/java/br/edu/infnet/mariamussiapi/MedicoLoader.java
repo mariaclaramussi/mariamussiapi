@@ -34,15 +34,14 @@ public class MedicoLoader implements ApplicationRunner {
             medico.setCRM(campos[1]);
             medico.setEspecialidade(campos[2]);
             medico.setCpf(campos[3]);
+            medico.setNascimento(campos[4]);
 
             medicoService.adicionar(medico);
-            System.out.println(medico);
 
             linha = leitura.readLine();
         }
 
-        System.out.println("- " + medicoService.obterLista().size());
-
+        medicoService.obterLista().forEach(System.out::println);
         leitura.close();
     }
 }

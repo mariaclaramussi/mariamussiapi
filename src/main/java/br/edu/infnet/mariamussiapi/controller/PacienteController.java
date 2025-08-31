@@ -3,6 +3,7 @@ package br.edu.infnet.mariamussiapi.controller;
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Paciente;
 import br.edu.infnet.mariamussiapi.model.service.PacienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +19,22 @@ public class PacienteController {
     public PacienteController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
     }
-    @GetMapping
-    public List<Paciente> obterPacientes() {
-        return pacienteService.obterLista();
+
+    @GetMapping public ResponseEntity<List<Paciente>> obterPacientes() {
+        List<Paciente> lista = pacienteService.obterLista();
+
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping(value="/{id}")
-    public Paciente obterPorId(@PathVariable Integer id) {
-        return pacienteService.obterPorId(id);
+    public ResponseEntity<Paciente> obterPorId(@PathVariable Integer id) {
+        Paciente paciente =  pacienteService.obterPorId(id);
+
+        return ResponseEntity.ok(paciente);
     }
 
     @GetMapping(value="/{id}/consultas")
@@ -34,14 +43,15 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Paciente> criarPaciente(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> criarPaciente(@Valid @RequestBody Paciente paciente) {
         Paciente novoPaciente = pacienteService.adicionar(paciente);
-        return  ResponseEntity.status(HttpStatus.CREATED).body(novoPaciente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoPaciente);
     }
 
     @PutMapping(value = "/{id}")
-    public Paciente editarPaciente(@PathVariable Integer id, @RequestBody Paciente paciente) {
-        return pacienteService.editar(id, paciente);
+    public ResponseEntity<Paciente> editarPaciente(@PathVariable Integer id, @Valid @RequestBody Paciente paciente) {
+        Paciente pacienteAlterado =  pacienteService.editar(id, paciente);
+        return ResponseEntity.ok().body(paciente);
     }
 
     @DeleteMapping(value = "/{id}")

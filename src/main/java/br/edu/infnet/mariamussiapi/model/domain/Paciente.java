@@ -1,5 +1,8 @@
 package br.edu.infnet.mariamussiapi.model.domain;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Paciente extends Pessoa {
 
     private String nomeMae;
