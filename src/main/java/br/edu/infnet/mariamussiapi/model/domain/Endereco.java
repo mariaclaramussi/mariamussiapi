@@ -28,9 +28,9 @@ public class Endereco {
     @Size(min = 10, message = "O campo de rua deve ter no minimo 10 caracteres.")
     private String rua;
 
-    @NotBlank(message = "O país é obrigatório.")
-    @Size(min = 3, message = "País deve ter no minimo 3 caracteres.")
-    private String pais;
+    @NotBlank(message = "O bairro é obrigatório.")
+    @Size(min = 3, message = "bairro deve ter no minimo 3 caracteres.")
+    private String bairro;
 
     private String complemento;
 
@@ -40,7 +40,7 @@ public class Endereco {
                 "cep='" + cep + '\'' +
                 ", UF='" + UF + '\'' +
                 ", rua='" + rua + '\'' +
-                ", pais='" + pais + '\'' +
+                ", bairro='" + bairro + '\'' +
                 ", complemento='" + complemento + '\'' +
                 '}';
     }
@@ -69,12 +69,12 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public String getPais() {
-        return pais;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setBairro(String pais) {
+        this.bairro = pais;
     }
 
     public String getComplemento() {

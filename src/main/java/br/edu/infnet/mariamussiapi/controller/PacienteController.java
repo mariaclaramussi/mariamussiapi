@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/pacientes")
@@ -38,8 +39,15 @@ public class PacienteController {
     }
 
     @GetMapping(value="/{id}/consultas")
-    public List<Agendamento> exibirConsultas(@PathVariable Integer id) {
-        return pacienteService.verificarConsultas(id);
+    public ResponseEntity<Optional<List<Agendamento>>> exibirConsultas(@PathVariable Integer id) {
+        Optional<List<Agendamento>> agendamentos = pacienteService.verificarConsultas(id);
+
+        if (agendamentos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        System.out.println(agendamentos);
+        return ResponseEntity.status(HttpStatus.FOUND).body(agendamentos);
     }
 
     @PostMapping
@@ -49,7 +57,7 @@ public class PacienteController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Paciente> editarPaciente(@PathVariable Integer id, @Valid @RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> editarPaciente(@PathVariable Integer id, @RequestBody Paciente paciente) {
         Paciente pacienteAlterado =  pacienteService.editar(id, paciente);
         return ResponseEntity.ok().body(paciente);
     }

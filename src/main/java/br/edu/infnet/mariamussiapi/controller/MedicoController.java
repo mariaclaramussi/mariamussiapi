@@ -3,12 +3,13 @@ package br.edu.infnet.mariamussiapi.controller;
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
 import br.edu.infnet.mariamussiapi.model.service.MedicoService;
-import org.apache.coyote.Response;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/medicos")
@@ -35,12 +36,18 @@ public class MedicoController {
     }
 
     @GetMapping(value="/{id}/agenda")
-    public List<Agendamento> obterAgendamentos(@PathVariable Integer id) {
-        return medicoService.verificarAgendamentos(id);
+    public ResponseEntity<Optional<List<Agendamento>>> obterAgendamentos(@PathVariable Integer id) {
+       Optional<List<Agendamento>> agendamentos = medicoService.verificarAgendamentos(id);
+
+       if (agendamentos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+       }
+
+        return ResponseEntity.ok(agendamentos);
     }
 
     @PostMapping
-    public ResponseEntity<Medico> criarMedico(@RequestBody Medico medico) {
+    public ResponseEntity<Medico> criarMedico(@Valid @RequestBody Medico medico) {
         Medico novoMedico = medicoService.adicionar(medico);
         return  ResponseEntity.status(HttpStatus.CREATED).body(novoMedico);
     }

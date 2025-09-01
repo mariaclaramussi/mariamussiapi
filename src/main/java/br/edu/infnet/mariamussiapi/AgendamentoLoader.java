@@ -7,17 +7,29 @@ import java.sql.Timestamp;
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
 import br.edu.infnet.mariamussiapi.model.domain.Paciente;
+import br.edu.infnet.mariamussiapi.model.domain.exceptions.MedicoNaoExisteException;
+import br.edu.infnet.mariamussiapi.model.domain.exceptions.PacienteInvalidoException;
 import br.edu.infnet.mariamussiapi.model.service.AgendamentoService;
+import br.edu.infnet.mariamussiapi.model.service.MedicoService;
+import br.edu.infnet.mariamussiapi.model.service.PacienteService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+@Order(3)
 @Component
 public class AgendamentoLoader implements ApplicationRunner {
 
     private final AgendamentoService agendamentoService;
+    private final MedicoService medicoService;
+    private final PacienteService pacienteService;
 
-    public AgendamentoLoader(AgendamentoService agendamentoService) {this.agendamentoService = agendamentoService;}
+    public AgendamentoLoader(AgendamentoService agendamentoService, MedicoService medicoService, PacienteService pacienteService) {
+        this.agendamentoService = agendamentoService;
+        this.medicoService = medicoService;
+        this.pacienteService = pacienteService;
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -33,35 +45,43 @@ public class AgendamentoLoader implements ApplicationRunner {
 
             campos = linha.split(";");
 
-            Paciente paciente = new Paciente();
-            paciente.setNome("Maria");
-            paciente.setCpf("100.000.000-00");
-            paciente.setNomeMae("Rafaela");
+            Paciente paciente = null;
+            try {
+                paciente = pacienteService.obterPorCpf(campos[5]);
+            } catch (PacienteInvalidoException e) {
+                linha = leitura.readLine();
+                continue;
+            }
 
-            Medico medico = new Medico();
-            medico.setNome("Medico 1");
-            medico.setCRM("100000");
-            medico.setEspecialidade("Cirurgia Geral");
+            Medico medico = null;
+            try {
+                medico = medicoService.obterPorCrm(campos[6]);
+            } catch (MedicoNaoExisteException e) {
+                linha = leitura.readLine();
+                continue;
+            }
 
             Agendamento agendamento = new Agendamento();
-
             agendamento.setPaciente(paciente);
             agendamento.setMedico(medico);
-            agendamento.setProntuario(Integer.valueOf(campos[2]));
-            agendamento.setPlanoDeSaude(campos[3]);
-            agendamento.setTipoConsulta(campos[4]);
-            agendamento.setValor(Double.parseDouble(campos[5]));
-            agendamento.setData(campos[6]);
+            agendamento.setProntuario(Integer.valueOf(campos[0]));
+            agendamento.setPlanoDeSaude(campos[1]);
+            agendamento.setTipoConsulta(campos[2]);
+            agendamento.setValor(Double.parseDouble(campos[3]));
+            agendamento.setData(campos[4]);
 
-            agendamentoService.adicionar(agendamento);
-
-            System.out.println(agendamento);
-
+            try {
+                agendamentoService.adicionar(agendamento);
+                System.out.println("  [OK] Agendamento " + agendamento.getProntuario() + " incluído com sucesso.");
+            } catch (Exception e) {
+                System.err.println("  [ERRO] Problema na inclusão do agendamento " + agendamento.getProntuario() + ": " + e.getMessage());
+            }
             linha = leitura.readLine();
         }
 
-        System.out.println("- " + agendamentoService.obterLista().size());
-
+        System.out.println("----AGENDAMENTOS-----");
+        agendamentoService.obterLista().forEach(System.out::println);
+        System.out.println("-----------------------------");
         leitura.close();
     }
 }

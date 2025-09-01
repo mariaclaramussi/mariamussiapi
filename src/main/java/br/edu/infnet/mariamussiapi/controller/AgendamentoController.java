@@ -35,9 +35,15 @@ public class AgendamentoController {
         return ResponseEntity.ok(agendamento);
     }
 
-    @GetMapping(value = "/{id}/validar")
-    public Boolean verificarAgendamento(@PathVariable Integer id) {
-        return agendamentoService.verificarAgendamento(id);
+    @GetMapping(value = "/verificarAgendamento")
+    public ResponseEntity<Boolean> verificarAgendamento(@RequestBody String data) {
+        Boolean exists = agendamentoService.verificarAgendamento(data);
+
+        if(exists) {
+            return new ResponseEntity<>(exists, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(exists, HttpStatus.NO_CONTENT);
+        }
     }
 
     @PostMapping

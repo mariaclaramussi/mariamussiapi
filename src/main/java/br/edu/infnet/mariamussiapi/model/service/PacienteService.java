@@ -3,18 +3,23 @@ package br.edu.infnet.mariamussiapi.model.service;
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Paciente;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.PacienteInvalidoException;
+import br.edu.infnet.mariamussiapi.model.repository.AgendamentoRepository;
 import br.edu.infnet.mariamussiapi.model.repository.PacienteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteService implements CrudService<Paciente, Integer>{
 
     private final PacienteRepository pacienteRepository;
+    private final AgendamentoRepository agendamentoRepository;
 
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, AgendamentoRepository agendamentoRepository) {
         this.pacienteRepository = pacienteRepository;
+        this.agendamentoRepository = agendamentoRepository;
     }
 
     public void validarId(Integer id) {
@@ -31,16 +36,17 @@ public class PacienteService implements CrudService<Paciente, Integer>{
         if(paciente.getCpf() == null) {
             throw new PacienteInvalidoException("O CPF é obrigatorio");
         }
-
     }
 
     @Override
+    @Transactional
     public Paciente adicionar(Paciente paciente) {
         validar(paciente);
         return pacienteRepository.save(paciente);
     }
 
     @Override
+    @Transactional
     public Paciente editar(Integer id, Paciente paciente) {
         validarId(id);
         validar(paciente);
@@ -50,6 +56,7 @@ public class PacienteService implements CrudService<Paciente, Integer>{
     }
 
     @Override
+    @Transactional
     public void excluir(Integer id) {
         validarId(id);
         Paciente paciente = obterPorId(id);
@@ -60,7 +67,7 @@ public class PacienteService implements CrudService<Paciente, Integer>{
     @Override
     public Paciente obterPorId(Integer id) {
         validarId(id);
-        return  pacienteRepository.findById(id).orElseThrow(() -> new PacienteInvalidoException("Paciente nao encontrado"));
+        return pacienteRepository.findById(id).orElseThrow(() -> new PacienteInvalidoException("Paciente nao encontrado"));
     }
 
     @Override
@@ -68,8 +75,16 @@ public class PacienteService implements CrudService<Paciente, Integer>{
         return pacienteRepository.findAll();
     }
 
-    public List<Agendamento> verificarConsultas(Integer id) {
-        // TODO: verificar se existe consultas para o paciente
+    public Optional<List<Agendamento>> verificarConsultas(Integer id) {
+        Optional<List<Agendamento>> agendamentos = agendamentoRepository.findAllByPacienteId(id);
+
+        if(agendamentos.isPresent()) {
+            return agendamentos;
+        }
         return null;
+    }
+
+    public Paciente obterPorCpf(String cpf) {
+        return pacienteRepository.findByCpf(cpf).orElseThrow(() -> new PacienteInvalidoException("Paciente nao encontrado"));
     }
 }

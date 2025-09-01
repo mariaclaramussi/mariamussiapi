@@ -1,0 +1,471 @@
+{
+	"info": {
+		"_postman_id": "d73107a4-9428-41d7-870b-d589a2cfef22",
+		"name": "api-mariaclaramussi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47647404",
+		"_collection_link": "https://mariaclaramussi-1036664.postman.co/workspace/72de867d-dfc2-44d8-889e-6fe0b8b2c791/collection/47647404-d73107a4-9428-41d7-870b-d589a2cfef22?action=share&source=collection_link&creator=47647404"
+	},
+	"item": [
+		{
+			"name": "Agendamento",
+			"item": [
+				{
+					"name": "obterLista",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agendamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agendamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obterPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agendamentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agendamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agendamentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agendamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "incluir",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"paciente\": null,\n        \"medico\": null,\n        \"prontuario\": 1235,\n        \"planoDeSaude\": \"Amil\",\n        \"tipoConsulta\": \"plano\",\n        \"valor\": 0.0,\n        \"data\": \"2025-04-25T15:23:54.000+00:00\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agendamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agendamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"id\": 2,\n        \"paciente\": null,\n        \"medico\": null,\n        \"prontuario\": 1235,\n        \"planoDeSaude\": null,\n        \"tipoConsulta\": \"Particular\",\n        \"valor\": 10.0,\n        \"data\": \"2025-04-25T16:23:54.000+00:00\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agendamentos/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agendamentos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verificarAgendamento",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "22/02/2025"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agendamentos/verificarAgendamento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agendamentos",
+								"verificarAgendamento"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medico",
+			"item": [
+				{
+					"name": "obterLista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/medicos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obterPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/medicos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "incluir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"nome\": \"Medico 3\",\n        \"cpf\": \"000.001.002-44\",\n        \"nascimento\": null,\n        \"sexo\": null,\n        \"endereco\": null,\n        \"especialidade\": \"Ortopedia\",\n        \"crm\": \"100002\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/medicos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"nome\": \"Medico 2\",\n        \"cpf\": \"000.001.002-44\",\n        \"nascimento\": null,\n        \"sexo\": null,\n        \"endereco\": null,\n        \"especialidade\": \"Pediatria\",\n        \"crm\": \"100002\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/medicos/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"nome\": \"Medico 3\",\n        \"cpf\": \"000.001.002-44\",\n        \"nascimento\": null,\n        \"sexo\": null,\n        \"endereco\": null,\n        \"especialidade\": \"Ortopedia\",\n        \"crm\": \"100002\"\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/medicos/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "agenda",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"nome\": \"Medico 3\",\n        \"cpf\": \"000.001.002-44\",\n        \"nascimento\": null,\n        \"sexo\": null,\n        \"endereco\": null,\n        \"especialidade\": \"Ortopedia\",\n        \"crm\": \"100002\"\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/medicos/10/agenda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medicos",
+								"10",
+								"agenda"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "obterLista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obterPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pacientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pacientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "incluir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"nome\": \"Marcio\",\n        \"cpf\": \"111.001.002-33\",\n        \"nascimento\": \"1999-02-11T02:00:00.000+00:00\",\n        \"sexo\": null,\n        \"endereco\": null,\n        \"nomeMae\": \"Rafaela\",\n        \"possuiPlano\": false\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"nome\": \"Marcio\",\n        \"cpf\": \"111.001.002-33\",\n        \"nascimento\": \"1999-02-11T02:00:00.000+00:00\",\n        \"sexo\": null,\n        \"endereco\": null,\n        \"nomeMae\": \"Monica\",\n        \"possuiPlano\": false\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/pacientes/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pacientes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "excluir",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"nome\": \"Marcio\",\n        \"cpf\": \"111.001.002-33\",\n        \"nascimento\": \"1999-02-11T02:00:00.000+00:00\",\n        \"sexo\": null,\n        \"endereco\": null,\n        \"nomeMae\": \"Monica\",\n        \"possuiPlano\": false\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/pacientes/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pacientes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultas",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

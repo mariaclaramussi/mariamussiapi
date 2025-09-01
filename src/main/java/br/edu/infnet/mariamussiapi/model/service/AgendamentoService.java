@@ -2,10 +2,13 @@ package br.edu.infnet.mariamussiapi.model.service;
 
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.AgendamentoInvalidoException;
+import br.edu.infnet.mariamussiapi.model.domain.exceptions.AgendamentoNaoExisteException;
 import br.edu.infnet.mariamussiapi.model.repository.AgendamentoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AgendamentoService implements CrudService<Agendamento, Integer> {
@@ -20,12 +23,11 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
         if(agendamento == null) {
             throw new IllegalArgumentException("O agendamento não pode ser vazio");
         }
-
-//        if(agendamento.getPaciente() == null) {
-//            throw new AgendamentoInvalidoException("O paciente é obrigatório");
-//        } else if (agendamento.getMedico() == null) {
-//            throw new AgendamentoInvalidoException("O médico é obrigatório");
-//        }
+        if(agendamento.getPaciente() == null) {
+            throw new AgendamentoInvalidoException("O paciente é obrigatório");
+        } else if (agendamento.getMedico() == null) {
+            throw new AgendamentoInvalidoException("O médico é obrigatório");
+        }
     }
 
     public void validarId(Integer id) {
@@ -35,12 +37,14 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
     }
 
     @Override
+    @Transactional
     public Agendamento adicionar(Agendamento agendamento) {
         validar(agendamento);
         return agendamentoRepository.save(agendamento);
     }
 
     @Override
+    @Transactional
     public Agendamento editar(Integer id, Agendamento agendamento) {
         validarId(id);
         validar(agendamento);
@@ -52,6 +56,7 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
     }
 
     @Override
+    @Transactional
     public void excluir(Integer id) {
         validarId(id);
         Agendamento agendamento = obterPorId(id);
@@ -63,7 +68,7 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
     public Agendamento obterPorId(Integer id) {
         validarId(id);
 
-        return agendamentoRepository.findById(id).orElseThrow(() -> new AgendamentoInvalidoException("Agendamento inválido"));
+        return agendamentoRepository.findById(id).orElseThrow(() -> new AgendamentoNaoExisteException("Agendamento nao encontrado"));
     }
 
     @Override
@@ -71,8 +76,9 @@ public class AgendamentoService implements CrudService<Agendamento, Integer> {
         return agendamentoRepository.findAll();
     }
 
-    public Boolean verificarAgendamento(Integer id) {
-        validarId(id);
-        return false;
+    public Boolean verificarAgendamento(String data) {
+        Optional<Agendamento> agendamento = agendamentoRepository.findByData(data);
+
+        return !agendamento.isEmpty();
     }
 }
