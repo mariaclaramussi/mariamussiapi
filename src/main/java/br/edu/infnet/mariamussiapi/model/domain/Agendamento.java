@@ -1,10 +1,7 @@
 package br.edu.infnet.mariamussiapi.model.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-
-import java.sql.Timestamp;
 
 @Entity
 public class Agendamento {
@@ -12,14 +9,6 @@ public class Agendamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Transient
-    @Valid
-    private Paciente paciente;
-
-    @Transient
-    @Valid
-    private Medico medico;
 
     @NotNull
     @Min(value = 6, message = "O prontuário deve conter 6 dígitos")
@@ -36,18 +25,24 @@ public class Agendamento {
     @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$", message = "A data do agendamento deve estar no formato DD/MM/AAAA")
     private String data;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "paciente_id", nullable = false)
+    private Paciente paciente;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "medico_id", nullable = false)
+    private Medico medico;
+
     @Override
     public String toString() {
-        return "Agendamento {" +
-                "id=" + id +
-                ", paciente=" + paciente +
-                ", medico=" + medico +
-                ", prontuario=" + prontuario +
-                ", planoDeSaude='" + planoDeSaude + '\'' +
-                ", tipoConsulta='" + tipoConsulta + '\'' +
-                ", valor=" + valor +
-                ", data=" + data +
-                '}';
+        return String.format(
+                "Agendamento {id=%d, prontuario='%s', data='%s', paciente=%s, medico=%s}",
+                id,
+                prontuario,
+                data,
+                paciente != null ? String.format("%d - %s", paciente.getId(), paciente.getNome()) : "N/A",
+                medico != null ? String.format("%d - %s", medico.getId(), medico.getNome()) : "N/A"
+        );
     }
 
     public Integer getId() {

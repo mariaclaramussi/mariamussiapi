@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @MappedSuperclass
 public class Pessoa {
 
@@ -25,8 +27,6 @@ public class Pessoa {
     @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$", message = "Nascimento deve estar no formato DD/MM/AAAA")
     private String nascimento;
     private String sexo;
-
-//    private List<Agendamento> agendamentos;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")

@@ -4,19 +4,23 @@ import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.MedicoInvalidoException;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.MedicoNaoExisteException;
+import br.edu.infnet.mariamussiapi.model.repository.AgendamentoRepository;
 import br.edu.infnet.mariamussiapi.model.repository.MedicoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicoService implements CrudService<Medico, Integer> {
 
     private final MedicoRepository medicoRepository;
+    private final AgendamentoRepository agendamentoRepository;
 
-    public MedicoService(MedicoRepository medicoRepository) {
+    public MedicoService(MedicoRepository medicoRepository, AgendamentoRepository agendamentoRepository) {
         this.medicoRepository = medicoRepository;
+        this.agendamentoRepository = agendamentoRepository;
     }
 
     public void validar(Medico medico) {
@@ -36,6 +40,7 @@ public class MedicoService implements CrudService<Medico, Integer> {
     }
 
     @Override
+    @Transactional
     public Medico adicionar(Medico medico) {
         validar(medico);
 
@@ -55,6 +60,7 @@ public class MedicoService implements CrudService<Medico, Integer> {
     }
 
     @Override
+    @Transactional
     public void excluir(Integer id) {
         validarId(id);
         Medico medico = obterPorId(id);
@@ -74,8 +80,17 @@ public class MedicoService implements CrudService<Medico, Integer> {
         return medicoRepository.findAll();
     }
 
-    public List<Agendamento> verificarAgendamentos(Integer id) {
-        // TODO: confirmar agendamentos no nome do medico
+    public Optional<List<Agendamento>> verificarAgendamentos(Integer id) {
+        Optional<List<Agendamento>> agendamentos = agendamentoRepository.findAllByMedicoId(id);
+
+        if(agendamentos.isPresent()) {
+            return agendamentos;
+        }
         return null;
     }
+
+    public Medico obterPorCrm(String crm) {
+        return medicoRepository.findByCRM(crm).orElseThrow(() -> new MedicoNaoExisteException("Nao foi possivel encontrar médico"));
+    }
+
 }

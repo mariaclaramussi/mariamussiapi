@@ -1,6 +1,12 @@
 package br.edu.infnet.mariamussiapi.model.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Paciente extends Pessoa {
@@ -8,12 +14,16 @@ public class Paciente extends Pessoa {
     private String nomeMae;
     private boolean possuiPlano;
 
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Agendamento> agendamentos = new ArrayList<Agendamento>();
+
     @Override
     public String toString() {
-        return "Paciente{" +
-                "nomeMae='" + nomeMae + '\'' +
-                ", possuiPlano=" + possuiPlano +
-                '}';
+        return String.format(
+                "Paciente {nome='%s', cpf='%s'}",
+                getNome(),
+                getCpf()
+        );
     }
 
     public String getNomeMae() {
@@ -31,4 +41,14 @@ public class Paciente extends Pessoa {
     public void setPossuiPlano(boolean possuiPlano) {
         this.possuiPlano = possuiPlano;
     }
+
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
+    }
+
+
 }
