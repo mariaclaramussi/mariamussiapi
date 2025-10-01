@@ -1,5 +1,6 @@
 package br.edu.infnet.mariamussiapi.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,39 +11,31 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "O CEP é obrigatório.")
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP inválido. Use o formato XXXXX-XXX.")
     private String cep;
 
-    @NotBlank
-    @Size(min = 2, max = 2, message = "O UF deve ter 2 caracteres.")
-    private String UF;
+    private String uf;
 
-    @NotBlank(message = "O campo de rua é obrigatório.")
-    @Size(min = 10, message = "O campo de rua deve ter no minimo 10 caracteres.")
-    private String rua;
+    private String logradouro;
 
-    @NotBlank(message = "O bairro é obrigatório.")
-    @Size(min = 3, message = "bairro deve ter no minimo 3 caracteres.")
     private String bairro;
+
+    private String cidade;
 
     private String complemento;
 
-    @Override
-    public String toString() {
-        return "Endereco {" +
-                "cep='" + cep + '\'' +
-                ", UF='" + UF + '\'' +
-                ", rua='" + rua + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", complemento='" + complemento + '\'' +
-                '}';
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCep() {
@@ -53,28 +46,36 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public String getUF() {
-        return UF;
+    public String getUf() {
+        return uf;
     }
 
-    public void setUF(String UF) {
-        this.UF = UF;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
-    public String getRua() {
-        return rua;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getBairro() {
         return bairro;
     }
 
-    public void setBairro(String pais) {
-        this.bairro = pais;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public String getComplemento() {

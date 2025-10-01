@@ -2,6 +2,7 @@ package br.edu.infnet.mariamussiapi;
 
 import br.edu.infnet.mariamussiapi.model.domain.Endereco;
 import br.edu.infnet.mariamussiapi.model.domain.Paciente;
+import br.edu.infnet.mariamussiapi.model.service.EnderecoService;
 import br.edu.infnet.mariamussiapi.model.service.PacienteService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -10,15 +11,16 @@ import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Date;
 
 @Order(1)
 @Component
 public class PacienteLoader implements ApplicationRunner {
     private final PacienteService pacienteService;
+    private final EnderecoService enderecoService;
 
-    public PacienteLoader(PacienteService pacienteService) {
+    public PacienteLoader(PacienteService pacienteService, EnderecoService enderecoService) {
         this.pacienteService = pacienteService;
+        this.enderecoService = enderecoService;
     }
 
     @Override
@@ -40,13 +42,7 @@ public class PacienteLoader implements ApplicationRunner {
             paciente.setNascimento(campos[3]);
             paciente.setSexo(campos[4]);
 
-            Endereco endereco = new Endereco();
-            endereco.setCep(campos[5]);
-            endereco.setRua(campos[6]);
-            endereco.setBairro(campos[7]);
-            endereco.setUF(campos[8]);
-            endereco.setComplemento(campos[9]);
-
+            Endereco endereco = enderecoService.obterEndereco(campos[5]);
             paciente.setEndereco(endereco);
 
             pacienteService.adicionar(paciente);

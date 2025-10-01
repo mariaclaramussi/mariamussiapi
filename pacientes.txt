@@ -1,30 +1,29 @@
-Rebeca Moura;429.768.351-28;Ana Cavalcanti;06/05/1971;Feminino;92719-625;Rua Moreira Cesar;Niterói;RJ;Bloco B
-Alexia Teixeira;430.689.721-40;Valentina Martins;23/06/1990;Feminino;20169-800;Praia de Icaraí;Braúnas;SC;Apto 100
-Ana Vitória Nunes;432.871.956-46;Valentina Peixoto;22/06/1966;Masculino;96827-596;Loteamento de das Neves;Sport Club;RJ;Cobertura
-Srta. Ana Julia Alves;073.924.685-29;Maria Cecília Cardoso;24/07/1974;Masculino;27920-817;Lago Natália Mendes;Vila Maloca;SP;Bloco B
-Clara Freitas;206.934.578-56;Evelyn Correia;17/09/1994;Feminino;83023-862;Sítio Vitória da Paz;Barreiro;GO;Cobertura
-Thomas Porto;967.534.108-48;Natália Nunes;04/03/1970;Masculino;98963-833;Quadra de Teixeira;Vitoria Da Conquista;PB;Casa
-Juan Fernandes;586.914.270-94;Marcela Costela;10/11/1960;Masculino;48040-105;Via de Lima;Xerém;RJ;Fundos
-Dr. Noah Peixoto;590.163.724-07;Gabrielly Caldeira;03/06/1999;Feminino;96725-224;Estação Ana Santos;Paulo Vi;TO;Casa
-Pedro Miguel da Luz;253.971.064-61;Clara Dias;02/10/1974;Masculino;94037-166;Esplanada de Nogueira;Embaúbas;MA;Casa
-Rodrigo Moraes;945.201.873-97;Olivia Pereira;06/06/1980;Feminino;90382-679;Recanto Carvalho;Belvedere;MA;Casa
-Leonardo Castro;651.743.890-48;Ana Clara Araújo;28/01/2001;Masculino;57146-987;Avenida de Lopes;Alto Caiçaras;PE;Casa
-Igor Caldeira;246.015.893-98;Srta. Letícia Barros;20/09/1969;Feminino;29114-034;Fazenda Nascimento;Silveira;CE;Cobertura
-Sra. Ana Carolina Campos;634.081.975-39;Yasmin da Costa;25/09/1976;Feminino;04946-116;Aeroporto de Costela;Conjunto Capitão Eduardo;PR;Casa
-Sra. Bruna Rodrigues;196.408.325-70;Dra. Catarina da Costa;05/02/1982;Feminino;53844-490;Pátio de Cavalcanti;Vitoria;MT;Apto 101
-Sra. Daniela Cunha;962.401.583-05;Ana Jesus;21/03/1959;Feminino;17882-136;Viela Pires;Belvedere;RO;Casa
-João Ramos;180.543.962-60;Clara Silva;09/04/1977;Masculino;94037-166;Esplanada de Nogueira;Embaúbas;PI;Bloco B
-Heloísa Cardoso;149.083.652-70;Sra. Maria Julia Nunes;22/08/1973;Masculino;44098-971;Colônia da Luz;Caetano Furquim;AM;Cobertura
-Sra. Maria Fernanda Almeida;504.367.281-17;Sophie da Costa;29/09/1973;Feminino;78082-842;Lago de Moura;Santo Agostinho;CE;Apto 101
-Theo da Cruz;754.693.012-06;Maria Eduarda Cunha;22/10/1990;Feminino;17033-280;Setor de Farias;Pirineus;MA;Casa
-Nicolas da Mata;978.421.350-88;Luana Dias;05/03/1992;Feminino;39594-275;Campo Pedro Henrique Pereira;Esplanada;BA;Cobertura
-Gustavo Henrique Barbosa;728.654.130-71;Lorena da Luz;28/01/1986;Masculino;02697-394;Morro Felipe Oliveira;Aparecida 7ª Seção;DF;Apto 101
-Marcela da Cunha;319.085.467-00;Srta. Maria Monteiro;12/02/1992;Masculino;73513-422;Estrada de Lima;Vila Betânia;MS;Fundos
-Marcelo Dias;752.943.086-65;Maria Fernanda Moraes;01/12/1945;Masculino;39945-002;Largo de Oliveira;Xangri-Lá;RN;Cobertura
-Raul Rezende;196.205.843-33;Sophia da Rosa;14/05/1959;Feminino;48270-608;Trecho Ryan da Cruz;Nova Vista;PA;Fundos
-Amanda Souza;019.436.527-16;Amanda Silveira;02/02/1969;Feminino;12329-454;Favela de Moreira;Camponesa 2ª Seção;PR;Casa
-Sra. Julia Peixoto;350.649.821-51;Emanuella Farias;24/10/1953;Masculino;75284-889;Fazenda Ana Lívia da Mota;Novo Tupi;AC;Fundos
-Augusto Barros;457.038.916-39;Sabrina da Mata;02/03/2003;Feminino;01618-115;Aeroporto de Costa;Mangabeiras;RJ;Loja 2
-Lorena Rocha;398.156.207-03;Alana Santos;31/01/1947;Feminino;98819-327;Sítio Almeida;Vila União;RN;Cobertura
-João Miguel Martins;324.056.918-33;Gabrielly Cardoso;14/08/1960;Masculino;12332-511;Parque Yasmin da Mota;Guarani;AL;Casa
-Calebe da Cruz;712.056.438-26;Nicole Caldeira;21/07/1962;Feminino;67986-368;Vereda Laura Barros;Trevo;RN;Fundos
+Rebeca Moura;429.768.351-28;Ana Cavalcanti;06/05/1971;Feminino;01001-000
+Alexia Teixeira;430.689.721-40;Valentina Martins;23/06/1990;Feminino;20040-010
+Ana Vitória Nunes;432.871.956-46;Valentina Peixoto;22/06/1966;Masculino;30130-010
+Srta. Ana Julia Alves;073.924.685-29;Maria Cecília Cardoso;24/07/1974;Masculino;99523-970
+Clara Freitas;206.934.578-56;Evelyn Correia;17/09/1994;Feminino;60025-000
+Thomas Porto;967.534.108-48;Natália Nunes;04/03/1970;Masculino;70040-010
+Juan Fernandes;586.914.270-94;Marcela Costela;10/11/1960;Masculino;69005-070
+Dr. Noah Peixoto;590.163.724-07;Gabrielly Caldeira;03/06/1999;Feminino;80010-000
+Pedro Miguel da Luz;253.971.064-61;Clara Dias;02/10/1974;Masculino;88010-000
+Rodrigo Moraes;945.201.873-97;Olivia Pereira;06/06/1980;Feminino;64000-020
+Leonardo Castro;651.743.890-48;Ana Clara Araújo;28/01/2001;Masculino;49010-010
+Igor Caldeira;246.015.893-98;Srta. Letícia Barros;20/09/1969;Feminino;66010-000
+Sra. Ana Carolina Campos;634.081.975-39;Yasmin da Costa;25/09/1976;Feminino;69020-120
+Sra. Bruna Rodrigues;196.408.325-70;Dra. Catarina da Costa;05/02/1982;Feminino;79002-970
+Sra. Daniela Cunha;962.401.583-05;Ana Jesus;21/03/1959;Feminino;57020-000
+João Ramos;180.543.962-60;Clara Silva;09/04/1977;Masculino;58010-000
+Heloísa Cardoso;149.083.652-70;Sra. Maria Julia Nunes;22/08/1973;Masculino;59025-000
+Sra. Maria Fernanda Almeida;504.367.281-17;Sophie da Costa;29/09/1973;Feminino;76801-059
+Theo da Cruz;754.693.012-06;Maria Eduarda Cunha;22/10/1990;Feminino;69301-040
+Nicolas da Mata;978.421.350-88;Luana Dias;05/03/1992;Feminino;68900-073
+Gustavo Henrique Barbosa;728.654.130-71;Lorena da Luz;28/01/1986;Masculino;69900-072
+Marcela da Cunha;319.085.467-00;Srta. Maria Monteiro;12/02/1992;Masculino;65010-090
+Marcelo Dias;752.943.086-65;Maria Fernanda Moraes;01/12/1945;Masculino;72000-000
+Raul Rezende;196.205.843-33;Sophia da Rosa;14/05/1959;Feminino;76870-970
+Amanda Souza;019.436.527-16;Amanda Silveira;02/02/1969;Feminino;69908-130
+Sra. Julia Peixoto;350.649.821-51;Emanuella Farias;24/10/1953;Masculino;87013-230
+Augusto Barros;457.038.916-39;Sabrina da Mata;02/03/2003;Feminino;38400-100
+Lorena Rocha;398.156.207-03;Alana Santos;31/01/1947;Feminino;29100-010
+João Miguel Martins;324.056.918-33;Gabrielly Cardoso;14/08/1960;Masculino;24230410

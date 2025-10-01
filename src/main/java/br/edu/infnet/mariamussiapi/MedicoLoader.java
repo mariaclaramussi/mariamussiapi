@@ -2,6 +2,7 @@ package br.edu.infnet.mariamussiapi;
 
 import br.edu.infnet.mariamussiapi.model.domain.Endereco;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
+import br.edu.infnet.mariamussiapi.model.service.EnderecoService;
 import br.edu.infnet.mariamussiapi.model.service.MedicoService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,9 +16,11 @@ import java.io.FileReader;
 @Component
 public class MedicoLoader implements ApplicationRunner {
     private final MedicoService medicoService;
+    private final EnderecoService enderecoService;
 
-    public MedicoLoader(MedicoService medicoService) {
+    public MedicoLoader(MedicoService medicoService, EnderecoService enderecoService) {
         this.medicoService = medicoService;
+        this.enderecoService = enderecoService;
     }
 
     @Override
@@ -40,14 +43,9 @@ public class MedicoLoader implements ApplicationRunner {
             medico.setCRM(campos[4]);
             medico.setEspecialidade(campos[5]);
 
-            Endereco endereco = new Endereco();
-            endereco.setCep(campos[6]);
-            endereco.setRua(campos[7]);
-            endereco.setBairro(campos[8]);
-            endereco.setUF(campos[9]);
-            endereco.setComplemento(campos[10]);
-
+            Endereco endereco = enderecoService.obterEndereco(campos[6]);
             medico.setEndereco(endereco);
+
             medicoService.adicionar(medico);
 
             linha = leitura.readLine();

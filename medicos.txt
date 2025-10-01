@@ -1,10 +1,10 @@
-João Pereira;123.456.789-01;12/05/1980;Masculino;123456;Cardiologia;20031-050;Rua do Passeio;Centro;RJ;Apto 101
-Maria Fernandes;987.654.321-99;25/11/1975;Feminino;654321;Dermatologia;20270-130;Rua São Clemente;Botafogo;RJ;Casa 2
-Carlos Souza;456.789.123-45;03/08/1988;Masculino;112233;Ortopedia;22041-001;Avenida Atlântica;Copacabana;RJ;Cobertura
-Ana Lima;321.654.987-22;14/02/1990;Feminino;445566;Pediatria;23035-040;Estrada do Galeão;Ilha do Governador;RJ;Bloco B
-Felipe Andrade;741.852.963-00;09/09/1982;Masculino;778899;Neurologia;21021-060;Rua Conselheiro Agostinho;Ramos;RJ;Fundos
-Luciana Torres;258.369.147-77;21/06/1979;Feminino;334455;Ginecologia;22793-082;Rua Araguaia;Freguesia (Jacarepaguá);RJ;Casa 1
-Rafael Mendes;159.753.486-30;18/03/1985;Masculino;990011;Psiquiatria;20541-170;Rua Uruguai;Tijuca;RJ;Sala 3
-Patrícia Almeida;753.159.842-66;29/10/1992;Feminino;223344;Endocrinologia;22290-240;Rua General Severiano;Botafogo;RJ;Sobreloja
-Bruno Castro;369.258.147-55;05/01/1983;Masculino;556677;Oftalmologia;22410-003;Rua Jardim Botânico;Jardim Botânico;RJ;Apartamento 502
-Fernanda Rocha;951.753.852-12;30/07/1987;Feminino;667788;Reumatologia;21931-170;Rua Cambaúba;Jardim Guanabara;RJ;Bloco A
+João Pereira;123.456.789-01;12/05/1980;Masculino;123456;Cardiologia;20031-050
+Maria Fernandes;987.654.321-99;25/11/1975;Feminino;654321;Dermatologia;20270-130
+Carlos Souza;456.789.123-45;03/08/1988;Masculino;112233;Ortopedia;22041-001
+Ana Lima;321.654.987-22;14/02/1990;Feminino;445566;Pediatria;23035-040
+Felipe Andrade;741.852.963-00;09/09/1982;Masculino;778899;Neurologia;21021-060
+Luciana Torres;258.369.147-77;21/06/1979;Feminino;334455;Ginecologia;22793-082
+Rafael Mendes;159.753.486-30;18/03/1985;Masculino;990011;Psiquiatria;20541-170
+Patrícia Almeida;753.159.842-66;29/10/1992;Feminino;223344;Endocrinologia;22290-240
+Bruno Castro;369.258.147-55;05/01/1983;Masculino;556677;Oftalmologia;22410-003
+Fernanda Rocha;951.753.852-12;30/07/1987;Feminino;667788;Reumatologia;21931-170
