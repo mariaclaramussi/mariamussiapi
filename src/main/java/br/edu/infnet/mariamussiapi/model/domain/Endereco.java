@@ -11,21 +11,34 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "O CEP é obrigatório.")
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP inválido. Use o formato XXXXX-XXX.")
     private String cep;
 
+    @NotBlank
+    @Size(min = 2, max = 2, message = "O UF deve ter 2 caracteres.")
     private String uf;
 
+    @NotBlank(message = "O campo de rua é obrigatório.")
+    @Size(min = 10, message = "O campo de rua deve ter no minimo 10 caracteres.")
+    private String rua;
+
+    @NotBlank(message = "O logradouro é obrigatório.")
+    @Size(min = 3, message = "logradouro deve ter no minimo 3 caracteres.")
     private String logradouro;
 
+    @NotBlank(message = "O bairro é obrigatório.")
+    @Size(min = 3, message = "bairro deve ter no minimo 3 caracteres.")
     private String bairro;
 
+    @NotBlank(message = "A cidade é obrigatória.")
+    @Size(min = 3, message = "cidade deve ter no minimo 3 caracteres.")
     private String cidade;
 
     private String complemento;
@@ -52,6 +65,14 @@ public class Endereco {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public String getLogradouro() {
