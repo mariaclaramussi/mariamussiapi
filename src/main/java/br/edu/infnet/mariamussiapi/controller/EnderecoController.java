@@ -1,6 +1,8 @@
 package br.edu.infnet.mariamussiapi.controller;
 
 import br.edu.infnet.mariamussiapi.model.domain.Endereco;
+import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoRequestDTO;
+import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoResponseDTO;
 import br.edu.infnet.mariamussiapi.model.service.EnderecoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,12 @@ public class EnderecoController {
     }
 
     @GetMapping("/{cep}")
-    public ResponseEntity<Endereco> obterEnderecoPorCep (@PathVariable String cep) {
+    public ResponseEntity<EnderecoResponseDTO> obterEnderecoPorCep (@PathVariable String cep) {
 
-        Endereco resultadoEndereco = enderecoService.obterEndereco(cep);
+        EnderecoRequestDTO requestBody = new EnderecoRequestDTO();
+        requestBody.setCep(cep);
+
+        EnderecoResponseDTO resultadoEndereco = enderecoService.obterEndereco(requestBody);
 
         if(resultadoEndereco == null) {
             return ResponseEntity.noContent().build();

@@ -6,7 +6,6 @@ import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoRequestDTO;
 import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoResponseDTO;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class EnderecoService {
 
@@ -20,5 +19,17 @@ public class EnderecoService {
         Endereco enderecoEncontrado = enderecoFeignClient.obterEnderecoPorCep(endereco.getCep());
 
         return new EnderecoResponseDTO(enderecoEncontrado);
+    }
+
+    public Endereco mapEnderecoToEntity(EnderecoResponseDTO responseBody) {
+        Endereco endereco = new Endereco();
+        endereco.setCep(responseBody.getCep());
+        endereco.setLogradouro(responseBody.getLogradouro());
+        endereco.setCidade(responseBody.getCidade());
+        endereco.setUf(responseBody.getUf());
+        endereco.setBairro(responseBody.getBairro());
+        endereco.setComplemento(responseBody.getComplemento());
+
+        return endereco;
     }
 }

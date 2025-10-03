@@ -6,7 +6,6 @@ public class EnderecoResponseDTO {
 
     private String cep;
     private String uf;
-    private String rua;
     private String logradouro;
     private String bairro;
     private String cidade;
@@ -15,7 +14,6 @@ public class EnderecoResponseDTO {
     public EnderecoResponseDTO(Endereco endereco) {
         this.cep = endereco.getCep();
         this.uf = endereco.getUf();
-        this.rua = endereco.getRua();
         this.logradouro = endereco.getLogradouro();
         this.bairro = endereco.getBairro();
         this.cidade = endereco.getCidade();
@@ -36,14 +34,6 @@ public class EnderecoResponseDTO {
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
     }
 
     public String getLogradouro() {

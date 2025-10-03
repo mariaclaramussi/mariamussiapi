@@ -25,10 +25,6 @@ public class Endereco {
     @Size(min = 2, max = 2, message = "O UF deve ter 2 caracteres.")
     private String uf;
 
-    @NotBlank(message = "O campo de rua é obrigatório.")
-    @Size(min = 10, message = "O campo de rua deve ter no minimo 10 caracteres.")
-    private String rua;
-
     @NotBlank(message = "O logradouro é obrigatório.")
     @Size(min = 3, message = "logradouro deve ter no minimo 3 caracteres.")
     private String logradouro;
@@ -65,14 +61,6 @@ public class Endereco {
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
     }
 
     public String getLogradouro() {
