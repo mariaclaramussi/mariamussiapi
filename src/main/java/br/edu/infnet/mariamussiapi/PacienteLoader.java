@@ -2,6 +2,8 @@ package br.edu.infnet.mariamussiapi;
 
 import br.edu.infnet.mariamussiapi.model.domain.Endereco;
 import br.edu.infnet.mariamussiapi.model.domain.Paciente;
+import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoRequestDTO;
+import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoResponseDTO;
 import br.edu.infnet.mariamussiapi.model.service.EnderecoService;
 import br.edu.infnet.mariamussiapi.model.service.PacienteService;
 import org.springframework.boot.ApplicationArguments;
@@ -42,7 +44,11 @@ public class PacienteLoader implements ApplicationRunner {
             paciente.setNascimento(campos[3]);
             paciente.setSexo(campos[4]);
 
-            Endereco endereco = enderecoService.obterEndereco(campos[5]);
+            EnderecoRequestDTO enderecoRequest = new EnderecoRequestDTO();
+            enderecoRequest.setCep(campos[5]);
+
+            EnderecoResponseDTO enderecoResponse = enderecoService.obterEndereco(enderecoRequest);
+            Endereco endereco = enderecoService.mapEnderecoToEntity(enderecoResponse);
             paciente.setEndereco(endereco);
 
             pacienteService.adicionar(paciente);

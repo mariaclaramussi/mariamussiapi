@@ -2,6 +2,8 @@ package br.edu.infnet.mariamussiapi;
 
 import br.edu.infnet.mariamussiapi.model.domain.Endereco;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
+import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoRequestDTO;
+import br.edu.infnet.mariamussiapi.model.domain.dto.EnderecoResponseDTO;
 import br.edu.infnet.mariamussiapi.model.service.EnderecoService;
 import br.edu.infnet.mariamussiapi.model.service.MedicoService;
 import org.springframework.boot.ApplicationArguments;
@@ -43,7 +45,11 @@ public class MedicoLoader implements ApplicationRunner {
             medico.setCRM(campos[4]);
             medico.setEspecialidade(campos[5]);
 
-            Endereco endereco = enderecoService.obterEndereco(campos[6]);
+            EnderecoRequestDTO enderecoRequest = new EnderecoRequestDTO();
+            enderecoRequest.setCep(campos[6]);
+
+            EnderecoResponseDTO enderecoResponse = enderecoService.obterEndereco(enderecoRequest);
+            Endereco endereco = enderecoService.mapEnderecoToEntity(enderecoResponse);
             medico.setEndereco(endereco);
 
             medicoService.adicionar(medico);

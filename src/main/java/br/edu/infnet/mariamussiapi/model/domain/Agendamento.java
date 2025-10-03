@@ -16,7 +16,7 @@ public class Agendamento {
 
     private String planoDeSaude;
 
-    private String tipoConsulta; /* particular ou plano*/
+    private TipoConsulta tipoConsulta;
 
     @Min(value = 0)
     private double valor;
@@ -85,11 +85,11 @@ public class Agendamento {
         this.planoDeSaude = planoDeSaude;
     }
 
-    public String getTipoConsulta() {
+    public TipoConsulta getTipoConsulta() {
         return tipoConsulta;
     }
 
-    public void setTipoConsulta(String tipoConsulta) {
+    public void setTipoConsulta(TipoConsulta tipoConsulta) {
         this.tipoConsulta = tipoConsulta;
     }
 

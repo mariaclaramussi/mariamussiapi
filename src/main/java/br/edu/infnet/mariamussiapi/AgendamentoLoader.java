@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import br.edu.infnet.mariamussiapi.model.domain.Agendamento;
 import br.edu.infnet.mariamussiapi.model.domain.Medico;
 import br.edu.infnet.mariamussiapi.model.domain.Paciente;
+import br.edu.infnet.mariamussiapi.model.domain.TipoConsulta;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.MedicoNaoExisteException;
 import br.edu.infnet.mariamussiapi.model.domain.exceptions.PacienteInvalidoException;
 import br.edu.infnet.mariamussiapi.model.service.AgendamentoService;
@@ -66,7 +67,7 @@ public class AgendamentoLoader implements ApplicationRunner {
             agendamento.setMedico(medico);
             agendamento.setProntuario(Integer.valueOf(campos[0]));
             agendamento.setPlanoDeSaude(campos[1]);
-            agendamento.setTipoConsulta(campos[2]);
+            agendamento.setTipoConsulta(TipoConsulta.valueOf(campos[2]));
             agendamento.setValor(Double.parseDouble(campos[3]));
             agendamento.setData(campos[4]);
 
