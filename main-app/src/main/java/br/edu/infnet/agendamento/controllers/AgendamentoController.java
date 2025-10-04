@@ -3,6 +3,7 @@ package br.edu.infnet.agendamento.controllers;
 
 import br.edu.infnet.agendamento.model.domain.Agendamento;
 import br.edu.infnet.agendamento.model.service.AgendamentoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class AgendamentoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> obterAgendamento(@PathVariable Integer id) {
+    public ResponseEntity<Agendamento> obterAgendamento(@PathVariable("id") Integer id) {
         Agendamento agendamento = agendamentoService.obterPorId(id);
         return ResponseEntity.ok(agendamento);
     }
@@ -48,21 +49,21 @@ public class AgendamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<Agendamento> criarAgendamento(@RequestBody Agendamento agendamento) {
+    public ResponseEntity<Agendamento> criarAgendamento(@RequestBody @Valid Agendamento agendamento) {
         Agendamento novoAgendamento = agendamentoService.adicionar(agendamento);
 
         return  ResponseEntity.status(HttpStatus.CREATED).body(novoAgendamento);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> editarAgendamento(@PathVariable Integer id, @RequestBody Agendamento agendamento) {
+    public ResponseEntity<Agendamento> editarAgendamento(@PathVariable("id") Integer id, @Valid @RequestBody Agendamento agendamento) {
         Agendamento agendamentoAlterado =  agendamentoService.editar(id, agendamento);
 
         return ResponseEntity.ok().body(agendamentoAlterado);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> excluirAgendamento(@PathVariable Integer id) {
+    public ResponseEntity<Void> excluirAgendamento(@PathVariable("id") Integer id) {
         agendamentoService.excluir(id);
 
         return ResponseEntity.noContent().build();

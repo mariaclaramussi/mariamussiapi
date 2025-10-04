@@ -30,14 +30,14 @@ public class MedicoController {
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<Medico> obterPorId(@PathVariable Integer id) {
+    public ResponseEntity<Medico> obterPorId(@PathVariable("id") Integer id) {
         Medico medico = medicoService.obterPorId(id);
 
         return ResponseEntity.ok(medico);
     }
 
     @GetMapping(value="/{id}/agenda")
-    public ResponseEntity<Optional<List<Agendamento>>> obterAgendamentos(@PathVariable Integer id) {
+    public ResponseEntity<Optional<List<Agendamento>>> obterAgendamentos(@PathVariable("id") Integer id) {
        Optional<List<Agendamento>> agendamentos = medicoService.verificarAgendamentos(id);
 
        if (agendamentos.isEmpty()) {
@@ -54,13 +54,13 @@ public class MedicoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Medico> editarMedico(@PathVariable Integer id, @RequestBody Medico medico) {
+    public ResponseEntity<Medico> editarMedico(@PathVariable("id") Integer id, @Valid @RequestBody Medico medico) {
         Medico medicoAlterado =  medicoService.editar(id, medico);
         return ResponseEntity.ok().body(medicoAlterado);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> excluirMedico(@PathVariable Integer id) {
+    public ResponseEntity<Void> excluirMedico(@PathVariable("id") Integer id) {
         medicoService.excluir(id);
 
         return ResponseEntity.noContent().build();
