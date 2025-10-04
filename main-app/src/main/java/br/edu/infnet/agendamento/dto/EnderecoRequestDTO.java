@@ -1,0 +1,19 @@
+package br.edu.infnet.agendamento.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public class EnderecoRequestDTO {
+
+    @NotBlank(message = "O CEP é obrigatório.")
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP inválido. Use o formato XXXXX-XXX.")
+    private String cep;
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+}
