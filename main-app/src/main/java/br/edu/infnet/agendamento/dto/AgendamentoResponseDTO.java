@@ -7,6 +7,7 @@ import br.edu.infnet.agendamento.model.domain.TipoConsulta;
 
 public class AgendamentoResponseDTO {
 
+    private Integer id;
     private Integer prontuario;
     private String planoDeSaude;
     private TipoConsulta tipoConsulta;
@@ -15,8 +16,8 @@ public class AgendamentoResponseDTO {
     private Paciente paciente;
     private Medico medico;
 
-
     public AgendamentoResponseDTO(Agendamento agendamento) {
+        this.id = agendamento.getId();
         this.prontuario = agendamento.getProntuario();
         this.planoDeSaude = agendamento.getPlanoDeSaude();
         this.tipoConsulta = agendamento.getTipoConsulta();
@@ -24,6 +25,14 @@ public class AgendamentoResponseDTO {
         this.data = agendamento.getData();
         this.paciente = agendamento.getPaciente();
         this.medico = agendamento.getMedico();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getProntuario() {

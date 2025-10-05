@@ -1,28 +1,40 @@
 package br.edu.infnet.agendamento.controllers;
 
-
+import br.edu.infnet.agendamento.dto.AgendamentoRequestDTO;
+import br.edu.infnet.agendamento.dto.AgendamentoResponseDTO;
+import br.edu.infnet.agendamento.mappers.AgendamentoMapper;
 import br.edu.infnet.agendamento.model.domain.Agendamento;
+import br.edu.infnet.agendamento.model.domain.Medico;
+import br.edu.infnet.agendamento.model.domain.Paciente;
 import br.edu.infnet.agendamento.model.service.AgendamentoService;
+import br.edu.infnet.agendamento.model.service.MedicoService;
+import br.edu.infnet.agendamento.model.service.PacienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/agendamentos")
 public class AgendamentoController {
 
     private final AgendamentoService agendamentoService;
+    private final PacienteService pacienteService;
+    private final MedicoService medicoService;
 
-    public AgendamentoController(AgendamentoService agendamentoService) {
+
+    public AgendamentoController(AgendamentoService agendamentoService, PacienteService pacienteService, MedicoService medicoService) {
         this.agendamentoService = agendamentoService;
+        this.pacienteService = pacienteService;
+        this.medicoService = medicoService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Agendamento>> obterTodosAgendamentos() {
-        List<Agendamento> lista = agendamentoService.obterLista();
+    public ResponseEntity<List<AgendamentoResponseDTO>> obterTodosAgendamentos() {
+        List<AgendamentoResponseDTO> lista = agendamentoService.obterLista().stream().map(AgendamentoResponseDTO::new).collect(Collectors.toList());
 
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -32,9 +44,10 @@ public class AgendamentoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> obterAgendamento(@PathVariable("id") Integer id) {
+    public ResponseEntity<AgendamentoResponseDTO> obterAgendamento(@PathVariable("id") Integer id) {
         Agendamento agendamento = agendamentoService.obterPorId(id);
-        return ResponseEntity.ok(agendamento);
+
+        return ResponseEntity.ok(AgendamentoMapper.toDTO(agendamento));
     }
 
     @GetMapping(value = "/verificarAgendamento")
@@ -49,17 +62,25 @@ public class AgendamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<Agendamento> criarAgendamento(@Valid @RequestBody Agendamento agendamento) {
+    public ResponseEntity<AgendamentoResponseDTO> criarAgendamento(@Valid @RequestBody AgendamentoRequestDTO request) {
+        Paciente paciente = pacienteService.obterPorId(request.getPacienteId());
+        Medico medico = medicoService.obterPorId(request.getMedicoId());
+
+        Agendamento agendamento = AgendamentoMapper.toEntity(request, paciente, medico);
         Agendamento novoAgendamento = agendamentoService.adicionar(agendamento);
 
-        return  ResponseEntity.status(HttpStatus.CREATED).body(novoAgendamento);
+        return  ResponseEntity.status(HttpStatus.CREATED).body(AgendamentoMapper.toDTO(novoAgendamento));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> editarAgendamento(@PathVariable("id") Integer id, @RequestBody Agendamento agendamento) {
+    public ResponseEntity<AgendamentoResponseDTO> editarAgendamento(@PathVariable("id") Integer id, @Valid @RequestBody AgendamentoRequestDTO request) {
+        Paciente paciente = pacienteService.obterPorId(request.getPacienteId());
+        Medico medico = medicoService.obterPorId(request.getMedicoId());
+
+        Agendamento agendamento = AgendamentoMapper.toEntity(request, paciente, medico);
         Agendamento agendamentoAlterado =  agendamentoService.editar(id, agendamento);
 
-        return ResponseEntity.ok().body(agendamentoAlterado);
+        return ResponseEntity.ok().body(AgendamentoMapper.toDTO(agendamentoAlterado));
     }
 
     @DeleteMapping(value = "/{id}")

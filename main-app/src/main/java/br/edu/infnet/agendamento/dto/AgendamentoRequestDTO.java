@@ -20,6 +20,7 @@ public class AgendamentoRequestDTO {
     private Integer medicoId;
     private String planoDeSaude;
     private TipoConsulta tipoConsulta;
+    private double valor;
 
     public Integer getProntuario() {
         return prontuario;
@@ -67,5 +68,13 @@ public class AgendamentoRequestDTO {
 
     public void setTipoConsulta(TipoConsulta tipoConsulta) {
         this.tipoConsulta = tipoConsulta;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 }
