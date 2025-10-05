@@ -1,9 +1,7 @@
 package br.edu.infnet.agendamento.loaders;
 
-
-import br.edu.infnet.agendamento.dto.EnderecoRequestDTO;
 import br.edu.infnet.agendamento.dto.EnderecoResponseDTO;
-import br.edu.infnet.agendamento.model.domain.Endereco;
+import br.edu.infnet.agendamento.mappers.EnderecoMapper;
 import br.edu.infnet.agendamento.model.domain.Medico;
 import br.edu.infnet.agendamento.model.service.EnderecoService;
 import br.edu.infnet.agendamento.model.service.MedicoService;
@@ -47,12 +45,8 @@ public class MedicoLoader implements ApplicationRunner {
             medico.setCRM(campos[4]);
             medico.setEspecialidade(campos[5]);
 
-            EnderecoRequestDTO enderecoRequest = new EnderecoRequestDTO();
-            enderecoRequest.setCep(campos[6]);
-
-            EnderecoResponseDTO enderecoResponse = enderecoService.obterEndereco(enderecoRequest);
-            Endereco endereco = enderecoService.mapEnderecoToEntity(enderecoResponse);
-            medico.setEndereco(endereco);
+            EnderecoResponseDTO enderecoResponse = enderecoService.obterEndereco(campos[6]);
+            medico.setEndereco(EnderecoMapper.toEntity(enderecoResponse));
 
             medicoService.adicionar(medico);
 

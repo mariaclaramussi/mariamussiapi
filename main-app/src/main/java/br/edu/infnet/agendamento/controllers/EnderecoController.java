@@ -22,10 +22,7 @@ public class EnderecoController {
 
     @GetMapping("/{cep}")
     public ResponseEntity<EnderecoResponseDTO> obterEnderecoPorCep (@PathVariable("cep") String cep) {
-        EnderecoRequestDTO requestBody = new EnderecoRequestDTO();
-        requestBody.setCep(cep);
-
-        EnderecoResponseDTO resultadoEndereco = enderecoService.obterEndereco(requestBody);
+        EnderecoResponseDTO resultadoEndereco = enderecoService.obterEndereco(cep);
 
         return ResponseEntity.ok(resultadoEndereco);
     }

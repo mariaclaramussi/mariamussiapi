@@ -1,10 +1,8 @@
 package br.edu.infnet.agendamento.model.service;
 
-
 import br.edu.infnet.agendamento.clients.EnderecoFeignClient;
-import br.edu.infnet.agendamento.dto.EnderecoRequestDTO;
 import br.edu.infnet.agendamento.dto.EnderecoResponseDTO;
-import br.edu.infnet.agendamento.model.domain.Endereco;
+import br.edu.infnet.agendamento.mappers.EnderecoMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,34 +14,21 @@ public class EnderecoService {
         this.enderecoFeignClient = enderecoFeignClient;
     }
 
-    private Endereco copyFromViaCepResponse(EnderecoFeignClient.EnderecoResponse response) {
-        Endereco endereco = new Endereco();
-        endereco.setCep(response.getCep());
-        endereco.setLogradouro(response.getLogradouro());
-        endereco.setCidade(response.getCidade());
-        endereco.setUf(response.getUf());
-        endereco.setBairro(response.getBairro());
-        endereco.setComplemento(response.getComplemento());
-
-        return endereco;
+    private void validarCep(String cep) {
+        if (cep == null || !cep.matches("\\d{8}")) {
+            throw new IllegalArgumentException("CEP inválido. Deve conter exatamente 8 dígitos numéricos.");
+        }
     }
 
-    public EnderecoResponseDTO obterEndereco(EnderecoRequestDTO endereco) {
-        EnderecoFeignClient.EnderecoResponse enderecoEncontrado = enderecoFeignClient.obterEnderecoPorCep(endereco.getCep());
-        Endereco enderecoFormatado = copyFromViaCepResponse(enderecoEncontrado);
+    public EnderecoResponseDTO obterEndereco(String cep) {
+        String cepSanitizado = cep.replaceAll("[^0-9]", "");
 
-        return new EnderecoResponseDTO(enderecoFormatado);
-    }
+        validarCep(cepSanitizado);
 
-    public Endereco mapEnderecoToEntity(EnderecoResponseDTO responseBody) {
-        Endereco endereco = new Endereco();
-        endereco.setCep(responseBody.getCep());
-        endereco.setLogradouro(responseBody.getLogradouro());
-        endereco.setCidade(responseBody.getCidade());
-        endereco.setUf(responseBody.getUf());
-        endereco.setBairro(responseBody.getBairro());
-        endereco.setComplemento(responseBody.getComplemento());
-
-        return endereco;
+        EnderecoFeignClient.EnderecoResponse enderecoResponse = enderecoFeignClient.obterEnderecoPorCep(cepSanitizado);
+        if (enderecoResponse == null) {
+            throw new IllegalArgumentException("Endereço não encontrado para o CEP: " + cep);
+        }
+        return EnderecoMapper.toDTO(enderecoResponse);
     }
 }

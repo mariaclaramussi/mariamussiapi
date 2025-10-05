@@ -1,9 +1,7 @@
 package br.edu.infnet.agendamento.loaders;
 
-
-import br.edu.infnet.agendamento.dto.EnderecoRequestDTO;
 import br.edu.infnet.agendamento.dto.EnderecoResponseDTO;
-import br.edu.infnet.agendamento.model.domain.Endereco;
+import br.edu.infnet.agendamento.mappers.EnderecoMapper;
 import br.edu.infnet.agendamento.model.domain.Paciente;
 import br.edu.infnet.agendamento.model.service.EnderecoService;
 import br.edu.infnet.agendamento.model.service.PacienteService;
@@ -46,12 +44,8 @@ public class PacienteLoader implements ApplicationRunner {
             paciente.setNascimento(campos[3]);
             paciente.setSexo(campos[4]);
 
-            EnderecoRequestDTO enderecoRequest = new EnderecoRequestDTO();
-            enderecoRequest.setCep(campos[5]);
-
-            EnderecoResponseDTO enderecoResponse = enderecoService.obterEndereco(enderecoRequest);
-            Endereco endereco = enderecoService.mapEnderecoToEntity(enderecoResponse);
-            paciente.setEndereco(endereco);
+            EnderecoResponseDTO enderecoResponse = enderecoService.obterEndereco(campos[5]);
+            paciente.setEndereco(EnderecoMapper.toEntity(enderecoResponse));
 
             pacienteService.adicionar(paciente);
 

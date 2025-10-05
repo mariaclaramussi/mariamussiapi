@@ -6,20 +6,11 @@ import br.edu.infnet.agendamento.model.domain.Endereco;
 public class EnderecoResponseDTO {
 
     private String cep;
-    private String uf;
     private String logradouro;
     private String bairro;
     private String cidade;
+    private String uf;
     private String complemento;
-
-    public EnderecoResponseDTO(Endereco endereco) {
-        this.cep = endereco.getCep();
-        this.uf = endereco.getUf();
-        this.logradouro = endereco.getLogradouro();
-        this.bairro = endereco.getBairro();
-        this.cidade = endereco.getCidade();
-        this.complemento = endereco.getComplemento();
-    }
 
     public String getCep() {
         return cep;
