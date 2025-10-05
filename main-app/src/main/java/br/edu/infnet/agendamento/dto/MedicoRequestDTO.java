@@ -1,16 +1,54 @@
 package br.edu.infnet.agendamento.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 public class MedicoRequestDTO {
 
-    @NotBlank(message = "O CRM é obrigatório.")
-    @Size(min = 6, max = 6, message = "O CRM deve conter 6 dígitos")
+    private String nome;
+    private String nascimento;
+    private String sexo;
+    private String cpf;
+    private String cep;
     private String CRM;
-
-    @Size(min = 3, message = "A especialidade deve ter no minimo 3 caracteres")
     private String especialidade;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
     public String getCRM() {
         return CRM;

@@ -14,12 +14,43 @@ public class MedicoResponseDTO {
     private String especialidade;
     private List<Agendamento> agendamentos = new ArrayList<Agendamento>();
     private EnderecoResponseDTO endereco;
+    private String cpf;
+    private String sexo;
+    private String nascimento;
 
     public MedicoResponseDTO(Medico medico) {
         this.CRM = medico.getCRM();
         this.especialidade = medico.getEspecialidade();
         this.agendamentos = medico.getAgendamentos();
-        this.endereco = (new EnderecoResponseDTO(medico.getEndereco()));
+        this.nome = medico.getNome();
+        this.cpf = medico.getCpf();
+        this.sexo = medico.getSexo();
+        this.nascimento = medico.getNascimento();
+        this.endereco = new EnderecoResponseDTO(medico.getEndereco());
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
     }
 
     public String getNome() {

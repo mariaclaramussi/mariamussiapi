@@ -12,6 +12,15 @@ public class EnderecoResponseDTO {
     private String uf;
     private String complemento;
 
+    public EnderecoResponseDTO(Endereco endereco) {
+        this.cep = endereco.getCep();
+        this.logradouro = endereco.getLogradouro();
+        this.bairro = endereco.getBairro();
+        this.cidade = endereco.getCidade();
+        this.uf = endereco.getUf();
+        this.complemento = endereco.getComplemento();
+    }
+
     public String getCep() {
         return cep;
     }

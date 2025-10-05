@@ -21,13 +21,13 @@ public class EnderecoMapper {
     }
 
     public static EnderecoResponseDTO toDTO(EnderecoFeignClient.EnderecoResponse response) {
-        EnderecoResponseDTO dto = new EnderecoResponseDTO();
-        dto.setCep(response.getCep());
-        dto.setLogradouro(response.getLogradouro());
-        dto.setBairro(response.getBairro());
-        dto.setCidade(response.getCidade());
-        dto.setUf(response.getUf());
-        dto.setComplemento(response.getComplemento());
-        return dto;
+        Endereco endereco = new Endereco();
+        endereco.setCep(response.getCep());
+        endereco.setLogradouro(response.getLogradouro());
+        endereco.setBairro(response.getBairro());
+        endereco.setCidade(response.getCidade());
+        endereco.setUf(response.getUf());
+        endereco.setComplemento(response.getComplemento());
+        return new EnderecoResponseDTO(endereco);
     }
 }
